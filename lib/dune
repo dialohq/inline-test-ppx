@@ -1,0 +1,11 @@
+(library
+ (name inline_test_ppx)
+ (public_name inline-test-ppx)
+ (libraries ppxlib yojson)
+ (kind ppx_rewriter)
+ (preprocess
+  (pps ppxlib.metaquot ppxlib.runner))
+ (flags
+  (:standard -open StdLabels)))
+
+(include_subdirs unqualified)

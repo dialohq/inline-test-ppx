@@ -1,0 +1,1 @@
+import * as Demo from "./src/Demo.mjs";

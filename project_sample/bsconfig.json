@@ -1,0 +1,19 @@
+{
+    "name": "rescript-sample-project",
+    "version": "0.0.1",
+    "sources": {
+      "dir" : "src",
+      "subdirs" : true
+    },
+    "package-specs": {
+      "module": "es6",
+      "in-source": false
+    },
+    "suffix": ".mjs",
+    "bs-dependencies": ["rescript-test"],
+    "bs-dev-dependencies": [],
+    "ppx-flags": ["../_esy/default/build/default/bin/main.exe"],
+    "warnings": {
+      "error" : "+101"
+    }
+  }

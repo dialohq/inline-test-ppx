@@ -1,0 +1,7 @@
+(executable
+ (name main)
+ (public_name inline-test-ppx)
+ (libraries inline_test_ppx cmdliner fmt fmt.tty logs.fmt logs.cli)
+ (flags (:standard -open StdLabels)))
+
+(include_subdirs unqualified)

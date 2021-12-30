@@ -1,0 +1,20 @@
+{
+    "name": "rescript-sample-project",
+    "version": "0.0.1",
+    "scripts": {
+      "build": "rescript",
+      "clean": "rescript clean -with-deps",
+      "start": "rescript build -w"
+    },
+    "keywords": [
+      "rescript"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+      "rescript": "*"
+    },
+    "devDependencies": {
+      "rescript-test": "^3.2.0"
+    }
+  }

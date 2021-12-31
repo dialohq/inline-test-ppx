@@ -24,9 +24,9 @@ The test will be erased in compilation phase for production builds.
 We provide an NPM package with prebuilt binaries.
 
 ```bash
-yarn global add @dialohq/inline-test-ppx
+yarn global add @dialo/inline-test-ppx
 # Or
-npm -g install @dialohq/inline-test-ppx
+npm -g install @dialo/inline-test-ppx
 ```
 
 And add the PPX in your `bsconfig.json` file:
@@ -34,7 +34,7 @@ And add the PPX in your `bsconfig.json` file:
 ```json
 {
   "ppx-flags": [
-    "ppx-flags": ["@dialohq/inline-test-ppx"]
+    "ppx-flags": ["@dialo/inline-test-ppx"]
   ]
 }
 ```
@@ -49,28 +49,28 @@ And add the PPX in your `bsconfig.json` file:
       a + b
     }
     
-    @test
+    @inline_test
     Jest.test("adds 1 + 2 to equal 3", () => {
       expect(sum(1, 2)).toBe(3);
     });
     ```
     > Note: our PPX assumes that the testing framework is designed similarly to jest or zora. I.e. that tests are simply defined as top level expressions in arbitrary files. At the time of writing this readme we are not aware of testing frameworks for rescript that are designed differently.
-3. Make test runner aware of the tests. All tests are indirectly accessible through `lib/bs/inline_ppx_tests.cjs:
+3. Make test runner aware of the tests. All tests are indirectly accessible through `lib/bs/__inline_test.*`:
    ### Jest
    In your jest config
    ```
    testMatch: [
-     "lib/bs/inline_ppx_tests.cjs",
+     "lib/bs/__inline_test.*.cjs", // use .mjs if you have es6 output configured in bsconfig
      // other test locations ...
    ]
    ```
    ### Zora (with pta):
    ```
    // scripts in package.json
-   "test": "pta 'lib/bs/inline_ppx_tests.cjs'" // add other locations as you see fit
+   "test": "pta 'lib/bs/__inline_test.*.cjs'" // add other locations as you see fit
    ```
    ### Others
-   Other frameworks usually have similar configurations which allow you to point to the location of JavaScript files containing case. In the case of our ppx all tests are referenced by an artifact located in `lib/bs/inline_ppx_tests.cjs`.
+   Other frameworks usually have similar configurations which allow you to point to the location of JavaScript files containing case. In the case of our ppx all tests are referenced by artifacts located in `lib/bs/` prefixed with `__inline_test`.
 4. Compile your sources with `INLINE_TEST=1` to compile the tests
     ```
     // scripts in package.json
@@ -92,7 +92,7 @@ And add the PPX in your `bsconfig.json` file:
 The PPX compiles any top level expression in a module conditionally based on the existence of `INLINE_TEST` env variable in the build environment. It means that:
 
 ```
-@test
+@inline_test
 Js.Console.log("hello")
 ```
 

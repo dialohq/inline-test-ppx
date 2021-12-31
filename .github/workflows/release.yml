@@ -14,7 +14,6 @@ jobs:
         os:
           - macos-latest
           - ubuntu-latest
-          - windows-latest
         ocaml-version:
           - 4.13.1
 
@@ -110,12 +109,6 @@ jobs:
           name: macos-latest
           path: _release/platform-darwin-x64
 
-      - name: Download Windows artifacts
-        uses: actions/download-artifact@master
-        with:
-          name: windows-latest
-          path: _release/platform-windows-x64
-
       - name: Create archives for Github release
         run: |
           cd _release/platform-darwin-x64
@@ -124,10 +117,6 @@ jobs:
 
           cd _release/platform-linux-x64
           zip -r ../../inline-test-ppx-linux-x64.zip .
-          cd ../..
-
-          cd _release/platform-windows-x64
-          zip -r ../../inline-test-ppx-windows-x64.zip .
           cd ../..
 
       - name: Upload inline-test-ppx-darwin-x64.zip to Github release

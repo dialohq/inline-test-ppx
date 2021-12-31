@@ -1,6 +1,6 @@
 # inline-test-ppx
 
-[![Actions Status](https://github.com/dialo/inline-test-ppx/workflows/CI/badge.svg)](https://github.com/dialo/inline-test-ppx/actions)
+[![Actions Status](https://github.com/dialohq/inline-test-ppx/workflows/CI/badge.svg)](https://github.com/dialohq/inline-test-ppx/actions)
 [![NPM Version](https://badge.fury.io/js/%40dialo%2Finline-test-ppx.svg)](https://badge.fury.io/js/%40dialo%2Finline-test-ppx)
 
 A PPX to write inline tests in ReScript.

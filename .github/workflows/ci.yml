@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 16
 
       - uses: actions/checkout@v2
       - name: Cache esy dependencies
@@ -44,6 +44,6 @@ jobs:
 
       - name: Run tests
         run: esy test
-        
+
       - name: Export dependencies
         run: esy export-dependencies

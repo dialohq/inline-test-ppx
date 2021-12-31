@@ -13,9 +13,7 @@
     "@opam/ppx_expect": "v0.14.2"
   },
   "devDependencies": {
-    "@opam/alcotest": "*",
     "@opam/dune-release": "*",
-    "@opam/merlin": "*",
     "@opam/ocaml-lsp-server": "*",
     "@opam/ocamlformat": "*",
     "@opam/odoc": "*",

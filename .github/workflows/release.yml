@@ -1,10 +1,9 @@
 name: Release
 
-on: 
+on:
   release:
     types: published
 
-{% if package_manager == 'Esy' -%}
 jobs:
   build:
     name: Build and test
@@ -15,9 +14,8 @@ jobs:
         os:
           - macos-latest
           - ubuntu-latest
-          - windows-latest
         ocaml-version:
-          - 4.11.1
+          - 4.13.1
 
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +28,7 @@ jobs:
         with:
           node-version: 12.x
           registry-url: "https://registry.npmjs.org"
-          
+
       - name: Cache esy dependencies
         uses: actions/cache@v1
         id: cache
@@ -80,90 +78,6 @@ jobs:
 
       - name: Export dependencies
         run: esy export-dependencies
-{% else -%}
-jobs:
-  build:
-    name: Build and test
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        ocaml-version: ['4.10.0']
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Retrieve opam cache
-        uses: actions/cache@v2
-        if: runner.os != 'Windows'
-        id: cache-opam
-        with:
-          path: ~/.opam
-          key: v1-${{ runner.os }}-opam-${{ matrix.ocaml-version }}-${{ hashFiles('inline-test-ppx.opam.locked') }}
-          restore-keys: |
-            v1-${{ runner.os }}-opam-${{ matrix.ocaml-version }}-
-
-      - name: Use OCaml ${{ matrix.ocaml-version }}
-        uses: avsm/setup-ocaml@v1
-        with:
-          ocaml-version: ${{ matrix.ocaml-version }}
-
-      - name: Use Node.js 12.x
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-
-      - name: Fetch git tags
-        run: git fetch --tags --force
-
-      - name: Use Node.js 12.x
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-
-      - name: Fetch git tags
-        run: git fetch --tags --force
-
-        - name: Pin package
-        run: opam pin add inline-test-ppx.dev . --no-action
-
-      - name: Query and install external dependencies
-        run: opam depext inline-test-ppx --yes --with-doc --with-test
-
-      - name: Install dependencies
-        if: steps.cache-opam.outputs.cache-hit != 'true'
-        run: opam install . --deps-only --with-doc --with-test --locked --unlock-base
-
-      - name: Upgrade dependencies
-        run: opam upgrade --fixup
-        if: steps.cache-opam.outputs.cache-hit == 'true'
-          
-      - name: Substitute watermarks
-        run: opam exec -- dune subst
-
-      - name: Build
-        run: opam exec -- dune build --release
-
-      - name: Make NPM release skeleton
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: node script/release-make-skeleton.js
-
-      - name: Upload _release
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: actions/upload-artifact@master
-        with:
-          name: _release
-          path: _release
-
-      - name: Upload artifacts for ${{ matrix.os }}
-        uses: actions/upload-artifact@master
-        with:
-          name: ${{ matrix.os }}
-          path: _build/default/bin/main.exe
-{% endif %}
 
   publish:
     needs: build
@@ -172,10 +86,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Use Node.js 12.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 16.x
 
       - name: Download _release
         uses: actions/download-artifact@master
@@ -195,12 +109,6 @@ jobs:
           name: macos-latest
           path: _release/platform-darwin-x64
 
-      - name: Download Windows artifacts
-        uses: actions/download-artifact@master
-        with:
-          name: windows-latest
-          path: _release/platform-windows-x64
-
       - name: Create archives for Github release
         run: |
           cd _release/platform-darwin-x64
@@ -211,11 +119,7 @@ jobs:
           zip -r ../../inline-test-ppx-linux-x64.zip .
           cd ../..
 
-          cd _release/platform-windows-x64
-          zip -r ../../inline-test-ppx-windows-x64.zip .
-          cd ../..
-
-      - name: Upload inline-test-ppx-darwin-x64.zip to Github release 
+      - name: Upload inline-test-ppx-darwin-x64.zip to Github release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -225,7 +129,7 @@ jobs:
           asset_name: inline-test-ppx-darwin-x64.zip
           asset_content_type: application/gzip
 
-      - name: Upload inline-test-ppx-linux-x64.zip to Github release 
+      - name: Upload inline-test-ppx-linux-x64.zip to Github release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -238,7 +142,7 @@ jobs:
       - name: Publish NPM package
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-          npm config set scope "@tmattio"
+          npm config set scope "@dialo"
           npm config list
           npm publish --access public
         working-directory: ./_release

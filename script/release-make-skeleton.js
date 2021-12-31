@@ -51,24 +51,24 @@ for (const file of filesToTouch) {
 }
 
 const pkgJson = {
-  name: "@tsnobip/inline-test-ppx",
+  name: "@dialo/inline-test-ppx",
   version: "%%VERSION%%",
   description: "A PPX to write inline tests in rescript",
   author: "Paul TSNOBILADZE",
   license: "MIT",
-  homepage: "https://github.com/tsnobip/inline-test-ppx",
+  homepage: "https://github.com/dialohq/inline-test-ppx",
   bugs: {
-    url: "https://github.com/tsnobip/inline-test-ppx/issues"
+    url: "https://github.com/dialohq/inline-test-ppx/issues"
   },
   repository: {
     type: "git",
-    url: "https://github.com/tsnobip/inline-test-ppx.git"
+    url: "https://github.com/dialohq/inline-test-ppx.git"
   },
   scripts: {
     postinstall: "node postinstall.js"
   },
   bin: {
-    inline-test-ppx: "inline-test-ppx"
+    "inline-test-ppx": "inline-test-ppx"
   },
   files: [
     "platform-windows-x64/",

@@ -7,10 +7,10 @@
     },
     "package-specs": {
       "module": "es6",
-      "in-source": false
+      "in-source": true
     },
     "suffix": ".mjs",
-    "bs-dependencies": ["rescript-test"],
+    "bs-dependencies": ["@dusty-phillips/rescript-zora"],
     "bs-dev-dependencies": [],
     "ppx-flags": ["../_esy/default/build/default/bin/main.exe"],
     "warnings": {

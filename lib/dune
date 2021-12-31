@@ -3,8 +3,9 @@
  (public_name inline-test-ppx)
  (libraries ppxlib yojson)
  (kind ppx_rewriter)
+ (inline_tests)
  (preprocess
-  (pps ppxlib.metaquot ppxlib.runner))
+  (pps ppxlib.metaquot ppxlib.runner ppx_expect))
  (flags
   (:standard -open StdLabels)))
 

@@ -4,7 +4,8 @@
     "scripts": {
       "build": "rescript",
       "clean": "rescript clean -with-deps",
-      "start": "rescript build -w"
+      "start": "INLINE_TEST=1 rescript build -w",
+      "test": "pta lib/bs/__inline_test.*.*"
     },
     "keywords": [
       "rescript"
@@ -15,6 +16,7 @@
       "rescript": "*"
     },
     "devDependencies": {
-      "rescript-test": "^3.2.0"
+        "@dusty-phillips/rescript-zora": "^3.0.0",
+        "pta": "^1.0.1"
     }
   }

@@ -9,7 +9,8 @@
     "@opam/dune": ">= 2.0",
     "@opam/ppxlib": "*",
     "@opam/yojson": "1.7.0",
-    "ocaml": ">= 4.8.0"
+    "ocaml": ">= 4.8.0",
+    "@opam/ppx_expect": "v0.14.2"
   },
   "devDependencies": {
     "@opam/alcotest": "*",
@@ -23,7 +24,8 @@
   },
   "scripts": {
     "start": "esy x inline-test-ppx",
-    "test": "esy dune build @test/runtest -f",
+    "test": "dune runtest --no-buffer",
+    "test:promote": "dune runtest --no-buffer --auto-promote",
     "doc": "esy dune build @doc",
     "doc-path": "esy echo #{self.target_dir}/default/_doc/_html/index.html",
     "format": "esy dune build @fmt --auto-promote",

@@ -1,7 +1,7 @@
 # inline-test-ppx
 
-[![Actions Status](https://github.com/tsnobip/inline-test-ppx/workflows/CI/badge.svg)](https://github.com/tsnobip/inline-test-ppx/actions)
-[![NPM Version](https://badge.fury.io/js/%40tsnobip%2Finline-test-ppx.svg)](https://badge.fury.io/js/%40tsnobip%2Finline-test-ppx)
+[![Actions Status](https://github.com/dialo/inline-test-ppx/workflows/CI/badge.svg)](https://github.com/dialo/inline-test-ppx/actions)
+[![NPM Version](https://badge.fury.io/js/%40dialo%2Finline-test-ppx.svg)](https://badge.fury.io/js/%40dialo%2Finline-test-ppx)
 
 A PPX to write inline tests in ReScript.
 
@@ -11,7 +11,7 @@ let sum = (a, b) => {
   a + b
 }
 
-@test
+@inline_test
 test("adds 1 + 2 to equal 3", () => {
   expect(sum(1, 2)).toBe(3);
 });

@@ -24,9 +24,9 @@ The test will be erased in compilation phase for production builds.
 We provide an NPM package with prebuilt binaries.
 
 ```bash
-yarn global add @dialo/inline-test-ppx
+yarn add @dialo/inline-test-ppx
 # Or
-npm -g install @dialo/inline-test-ppx
+npm install --save @dialo/inline-test-ppx
 ```
 
 And add the PPX in your `bsconfig.json` file:
@@ -34,7 +34,7 @@ And add the PPX in your `bsconfig.json` file:
 ```json
 {
   "ppx-flags": [
-    "ppx-flags": ["@dialo/inline-test-ppx"]
+    "ppx-flags": ["inline-test-ppx"]
   ]
 }
 ```

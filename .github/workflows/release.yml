@@ -74,7 +74,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: ${{ matrix.os }}
-          path: _build/default/bin/main.exe
+          path: _esy/default/build/install/default/bin/inline-test-ppx
 
       - name: Export dependencies
         run: esy export-dependencies

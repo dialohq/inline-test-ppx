@@ -17,7 +17,19 @@ let map_struct_item ~found_test struct_item =
           match Sys.getenv_opt "INLINE_TEST" with
           | Some ("1" | "true") ->
             let () = found_test () in
-            Pstr_eval (expr, [])
+            let loc = expr.pexp_loc in
+            Pstr_eval
+              ( [%expr
+                  match [%external process] with
+                  | Some process ->
+                    (match Js.Dict.get process#env "NODE_ENV" with
+                    | Some "test" ->
+                      [%e expr]
+                    | _ ->
+                      ())
+                  | None ->
+                    ()]
+              , [] )
           | Some _ | None ->
             Pstr_eval (nothing struct_item.P.pstr_loc, l)
         else

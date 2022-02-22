@@ -6,3 +6,5 @@ Zora.zora("sum", t => {
   t->equal(sum(1, 2), 3, "simple test: 1 + 2 = 3")
   done()
 })
+
+let foo = sum(1, 2)

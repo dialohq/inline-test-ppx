@@ -5,7 +5,7 @@
       "build": "rescript",
       "clean": "rescript clean -with-deps",
       "start": "INLINE_TEST=1 rescript build -w",
-      "test": "pta lib/bs/__inline_test.*.*"
+      "test": "NODE_ENV=test pta lib/bs/__inline_test.*.*"
     },
     "keywords": [
       "rescript"

@@ -85,7 +85,9 @@ try {
       Printf.sprintf
         {|
 import("%s").catch(e => {
-  if (e.code !== "ERR_MODULE_NOT_FOUND") reject(e)
+  if (e.code !== "ERR_MODULE_NOT_FOUND") {
+    throw e;
+  }
 });|}
         import_path
   in
